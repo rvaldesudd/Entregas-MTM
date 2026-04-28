@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copec – Transformación a Plataforma Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E8001D;
+    --dark: #0D0D0D;
+    --mid: #1A1A1A;
+    --surface: #242424;
+    --muted: #6B6B6B;
+    --light: #F0EDE8;
+    --accent: #FF6B35;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    border-bottom: 2px solid var(--red);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+    gap: 24px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
+  .logo-box {
+    background: var(--red);
+    padding: 6px 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 62px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    color: var(--white);
+  }
+
+  h1 span { color: var(--red); }
+
+  .meta {
+    text-align: right;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .meta strong { color: var(--light); font-weight: 500; }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 2px;
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+
+  .grid-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .card {
+    background: var(--mid);
+    padding: 22px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--red);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .card:hover::before { opacity: 1; }
+  .card:hover { background: #1f1f1f; }
+
+  .card.accent-card {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .card.accent-card .card-title { color: var(--white); }
+  .card.accent-card .card-body { color: rgba(255,255,255,0.85); }
+  .card.accent-card::before { background: var(--white); }
+
+  .card.surface-card { background: var(--surface); }
+
+  .card-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--surface);
+    position: absolute;
+    top: 10px; right: 16px;
+    pointer-events: none;
+  }
+
+  .accent-card .card-number { color: rgba(255,255,255,0.15); }
+
+  .card-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .accent-card .card-label { color: rgba(255,255,255,0.6); }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: var(--white);
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+
+  .card-body {
+    color: #AAA;
+    font-size: 12.5px;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── PILLS ── */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .pill {
+    background: var(--surface);
+    border: 1px solid #333;
+    padding: 3px 10px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #CCC;
+    font-weight: 500;
+  }
+
+  .accent-card .pill {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.3);
+    color: var(--white);
+  }
+
+  /* ── WIDE CARD ── */
+  .wide-card {
+    background: var(--mid);
+    padding: 22px 24px;
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    animation: fadeUp 0.7s 0.45s ease both;
+  }
+
+  .wide-card-inner { }
+
+  .divider-v {
+    width: 1px;
+    background: #2A2A2A;
+    align-self: stretch;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    margin-top: 2px;
+    border-top: 1px solid #2A2A2A;
+    animation: fadeUp 0.7s 0.55s ease both;
+  }
+
+  .footer-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .footer-bar {
+    display: flex;
+    gap: 20px;
+  }
+
+  .metric {
+    text-align: center;
+  }
+
+  .metric-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HORIZONTAL STRIP ── */
+  .strip {
+    background: var(--surface);
+    display: flex;
+    gap: 0;
+    margin-bottom: 2px;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+
+  .strip-item {
+    flex: 1;
+    padding: 14px 18px;
+    border-right: 1px solid #2A2A2A;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .strip-item:last-child { border-right: none; }
+
+  .strip-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .strip-text {
+    font-size: 11.5px;
+    color: #BBB;
+    font-weight: 300;
+  }
+
+  .strip-text strong {
+    color: var(--white);
+    font-weight: 500;
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div>
+      <div class="brand">
+        <div class="logo-box">COPEC</div>
+        <span class="tag">One Pager Estratégico</span>
+      </div>
+      <h1>TRANSFORMACIÓN A<br><span>PLATAFORMA DIGITAL</span><br>CON EFECTO RED</h1>
+    </div>
+    <div class="meta">
+      <strong>Tecnologías Emergentes</strong><br>
+      Universidad del Desarrollo<br><br>
+      Benjamín Hammersley<br>
+      Agustín Keitel<br>
+      Joaquín Poupin
+    </div>
+  </header>
+
+  <!-- ROW 1: 3 CARDS -->
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-number">01</div>
+      <div class="card-label">Contexto</div>
+      <div class="card-title">Estado Actual</div>
+      <div class="card-body">Copec es líder en distribución de combustibles en Chile con más de 90 años de trayectoria. Opera bajo un modelo <em>pipeline</em> con relaciones mayormente transaccionales, alta comoditización y dependencia de combustibles fósiles.</div>
+    </div>
+
+    <div class="card accent-card">
+      <div class="card-number">02</div>
+      <div class="card-label">Tendencia</div>
+      <div class="card-title">Nuevas Expectativas del Consumidor</div>
+      <div class="card-body">Los usuarios demandan experiencias integradas tipo <em>súper app</em>, personalización en tiempo real impulsada por IA y soluciones de movilidad sostenible. La electromovilidad redefine el sector.</div>
+      <div class="pills">
+        <span class="pill">IA & ML</span>
+        <span class="pill">Súper App</span>
+        <span class="pill">EV</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-number">03</div>
+      <div class="card-label">Oportunidad</div>
+      <div class="card-title">Disrupción del Modelo</div>
+      <div class="card-body">Pasar de venta física de productos a un ecosistema de movilidad y servicios. La red física de estaciones de servicio es una ventaja estratégica difícil de replicar que sirve como base para la plataforma.</div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2: STRIP -->
+  <div class="strip">
+    <div class="strip-item">
+      <div class="strip-icon">🔗</div>
+      <div class="strip-text"><strong>Conductores</strong>Lado demanda de la plataforma</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon">🏪</div>
+      <div class="strip-text"><strong>Comercios & Servicios</strong>Lado oferta integrado</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon">⚡</div>
+      <div class="strip-text"><strong>Electromovilidad</strong>Infraestructura de carga</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon">📊</div>
+      <div class="strip-text"><strong>Copec</strong>Orquestador del ecosistema</div>
+    </div>
+  </div>
+
+  <!-- ROW 3: BOTTOM GRID -->
+  <div class="grid-bottom">
+
+    <div class="card surface-card">
+      <div class="card-label">Diseño de Innovación</div>
+      <div class="card-title">App Copec Multisided</div>
+      <div class="card-body">La innovación propone una plataforma que conecta conductores, comercios y proveedores de servicios generando <strong style="color:var(--light)">efectos de red indirectos</strong>: más usuarios atraen más comercios y viceversa, creando un ciclo de retroalimentación positivo. La captura masiva de datos permite personalizar la experiencia y refuerza barreras de entrada.</div>
+      <div class="pills">
+        <span class="pill">Efecto Red</span>
+        <span class="pill">Data & Analytics</span>
+        <span class="pill">Fidelización</span>
+        <span class="pill">Cross-sell</span>
+      </div>
+    </div>
+
+    <div class="card surface-card">
+      <div class="card-label">Riesgos & Métricas</div>
+      <div class="card-title">Gestión del Nuevo Modelo</div>
+      <div class="card-body">
+        <strong style="color:var(--accent); font-size:11px; letter-spacing:1px">RIESGOS CLAVE</strong><br>
+        Masa crítica insuficiente para activar efectos red · Complejidad operativa de ecosistema multisided · Entrada de competidores al mismo espacio.<br><br>
+        <strong style="color:var(--accent); font-size:11px; letter-spacing:1px">MÉTRICAS DE ÉXITO</strong><br>
+        MAU · Comercios integrados · Transacciones por usuario · Tasa de retención · CLV · Cross-selling
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-label">Evaluación estratégica</div>
+      <div style="font-size:12px; color:#888; margin-top:4px; max-width:420px; font-weight:300">
+        Innovación disruptiva: Copec pasa de pipeline a plataforma. La ventaja competitiva se construye sobre infraestructura física, datos acumulados, efectos de red y costos de cambio para el usuario.
+      </div>
+    </div>
+    <div class="footer-bar">
+      <div class="metric">
+        <div class="metric-val">90+</div>
+        <div class="metric-label">Años de red</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">4</div>
+        <div class="metric-label">Actores plataforma</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">∞</div>
+        <div class="metric-label">Efecto red</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
